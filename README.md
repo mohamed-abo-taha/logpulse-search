@@ -121,13 +121,3 @@ streamlit run dashboard.py
 
 The same pipeline is also expressed as a NiFi flow (ingest → validate → route →
 PutMongo → PutElasticsearch). See [`nifi/README.md`](nifi/README.md).
-
-## Skills demonstrated
-
-- **MongoDB** — document modelling, bulk upserts, indexes, aggregation pipeline.
-- **Elasticsearch** — explicit mapping, bulk indexing, full-text search, aggregations.
-- **Kafka** — real-time producer/consumer streaming with the same sinks as batch.
-- **OOP** — abstract `Source`/`Sink`, polymorphism, dependency inversion.
-- **REST / data between systems** — `RestSource` + NiFi `InvokeHTTP`.
-- **Analytical thinking** — error-rate, p95 latency and region aggregations.
-- **Data quality, NiFi orchestration, Docker, Streamlit** — production extras.
