@@ -1,0 +1,3 @@
+"""LogPulse — an event pipeline: ingest -> MongoDB -> Elasticsearch -> search."""
+
+__version__ = "1.0.0"

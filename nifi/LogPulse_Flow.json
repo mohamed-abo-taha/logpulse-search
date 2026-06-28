@@ -1,0 +1,102 @@
+{
+  "flowContents": {
+    "name": "LogPulse_Ingestion_Flow",
+    "comments": "Ingest service log events from a REST endpoint, validate/route by severity, land raw JSON in MongoDB, and forward to the Python/Elasticsearch indexer. Demonstrates pipeline building & orchestration in Apache NiFi.",
+    "processors": [
+      {
+        "identifier": "p1-invoke-http",
+        "name": "InvokeHTTP — pull events (REST)",
+        "type": "org.apache.nifi.processors.standard.InvokeHTTP",
+        "properties": {
+          "HTTP Method": "GET",
+          "Remote URL": "http://event-producer:8000/events",
+          "Content-Type": "application/json",
+          "Scheduling Strategy": "TIMER_DRIVEN",
+          "Run Schedule": "30 sec"
+        },
+        "comments": "Polls an upstream REST API every 30s for a fresh batch of events."
+      },
+      {
+        "identifier": "p2-split-json",
+        "name": "SplitJson — one FlowFile per event",
+        "type": "org.apache.nifi.processors.standard.SplitJson",
+        "properties": {
+          "JsonPath Expression": "$.events[*]"
+        },
+        "comments": "Fan a batch array out into individual event records."
+      },
+      {
+        "identifier": "p3-validate",
+        "name": "ValidateRecord — schema check",
+        "type": "org.apache.nifi.processors.standard.ValidateRecord",
+        "properties": {
+          "Schema Access Strategy": "Use 'Schema Name' Property",
+          "Schema Name": "event"
+        },
+        "comments": "Drops malformed events to the 'invalid' relationship (dead-letter)."
+      },
+      {
+        "identifier": "p4-route-level",
+        "name": "RouteOnAttribute — by severity",
+        "type": "org.apache.nifi.processors.standard.RouteOnAttribute",
+        "properties": {
+          "Routing Strategy": "Route to Property name",
+          "error": "${level:equals('ERROR')}",
+          "other": "${level:matchesRegex('DEBUG|INFO|WARN')}"
+        },
+        "comments": "ERROR events can be alerted on separately; all events still land downstream."
+      },
+      {
+        "identifier": "p5-put-mongo",
+        "name": "PutMongo — land raw document",
+        "type": "org.apache.nifi.processors.mongodb.PutMongo",
+        "properties": {
+          "Mongo URI": "mongodb://logpulse-mongo:27017",
+          "Mongo Database Name": "logpulse",
+          "Mongo Collection Name": "events",
+          "Mode": "upsert",
+          "Upsert Key": "event_id"
+        },
+        "comments": "MongoDB is the system-of-record landing zone."
+      },
+      {
+        "identifier": "p6-put-es",
+        "name": "PutElasticsearchHttp — index for search",
+        "type": "org.apache.nifi.processors.elasticsearch.PutElasticsearchHttp",
+        "properties": {
+          "Elasticsearch URL": "http://logpulse-es:9200",
+          "Index": "logpulse-events",
+          "Type": "_doc",
+          "Identifier Attribute": "event_id",
+          "Index Operation": "upsert"
+        },
+        "comments": "Elasticsearch is the query/search layer."
+      }
+    ],
+    "connections": [
+      {"source": "p1-invoke-http", "destination": "p2-split-json", "relationship": "Response"},
+      {"source": "p2-split-json", "destination": "p3-validate", "relationship": "split"},
+      {"source": "p3-validate", "destination": "p4-route-level", "relationship": "valid"},
+      {"source": "p4-route-level", "destination": "p5-put-mongo", "relationship": "error"},
+      {"source": "p4-route-level", "destination": "p5-put-mongo", "relationship": "other"},
+      {"source": "p5-put-mongo", "destination": "p6-put-es", "relationship": "success"}
+    ]
+  },
+  "schemas": {
+    "event": {
+      "type": "record",
+      "name": "event",
+      "fields": [
+        {"name": "event_id", "type": "string"},
+        {"name": "timestamp", "type": "string"},
+        {"name": "service", "type": "string"},
+        {"name": "level", "type": "string"},
+        {"name": "message", "type": "string"},
+        {"name": "status_code", "type": "int"},
+        {"name": "latency_ms", "type": "double"},
+        {"name": "region", "type": "string"},
+        {"name": "user_id", "type": "string"}
+      ]
+    }
+  }
+}

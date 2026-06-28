@@ -1,0 +1,8 @@
+# Project 2 — LogPulse
+pymongo>=4.6          # MongoDB document store
+elasticsearch>=8.11   # Elasticsearch indexing + search
+kafka-python>=2.0     # Kafka real-time streaming (producer/consumer)
+requests>=2.31        # RestSource (optional REST ingestion)
+pandas>=2.1           # dashboard data wrangling
+streamlit>=1.30       # interactive search dashboard
+pytest>=8.0           # test suite
