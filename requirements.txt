@@ -1,4 +1,4 @@
-# Project 2 — LogPulse
+# LogPulse
 pymongo>=4.6          # MongoDB document store
 elasticsearch>=8.11   # Elasticsearch indexing + search
 kafka-python>=2.0     # Kafka real-time streaming (producer/consumer)
