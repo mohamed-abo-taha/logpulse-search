@@ -1,4 +1,12 @@
-# Project 2 — LogPulse: events → MongoDB + Elasticsearch (batch **and** streaming)
+# LogPulse — events → MongoDB + Elasticsearch (batch **and** streaming)
+
+[![CI](https://github.com/mohamed-abo-taha/logpulse-search/actions/workflows/ci.yml/badge.svg)](https://github.com/mohamed-abo-taha/logpulse-search/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.12-blue)
+![MongoDB](https://img.shields.io/badge/store-MongoDB-47A248)
+![Elasticsearch](https://img.shields.io/badge/search-Elasticsearch-005571)
+![Kafka](https://img.shields.io/badge/streaming-Kafka-231F20)
+![NiFi](https://img.shields.io/badge/orchestration-Apache%20NiFi-728E9B)
+![Docker](https://img.shields.io/badge/containers-Docker-2496ED)
 
 An event-processing pipeline that ingests service log/telemetry events, stores
 them as documents in **MongoDB**, and indexes them into **Elasticsearch** for
@@ -8,6 +16,14 @@ search UI.
 
 > Built to demonstrate MongoDB, Elasticsearch, NiFi, REST ingestion, OOP and
 > analytical thinking — plus real-time streaming as a stretch.
+
+### Architecture
+
+![Architecture](docs/architecture.png)
+
+### Event analytics output
+
+![Analytics](docs/results.png)
 
 ---
 

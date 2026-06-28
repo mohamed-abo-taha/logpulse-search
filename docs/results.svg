@@ -1,0 +1,51 @@
+<svg width="680" height="420" viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text { font-family: Arial, Helvetica, sans-serif; }
+    .hdr { font-size: 15px; font-weight: 700; fill: #1a1a1a; }
+    .sub { font-size: 11px; fill: #5F5E5A; }
+    .kpiN { font-size: 19px; font-weight: 700; fill: #185FA5; }
+    .kpiL { font-size: 11px; fill: #444441; }
+    .lbl { font-size: 12px; fill: #2C2C2A; }
+    .val { font-size: 12px; font-weight: 700; }
+    .sec { font-size: 13px; font-weight: 700; fill: #1a1a1a; }
+  </style>
+  <rect x="0" y="0" width="680" height="420" fill="#ffffff"/>
+
+  <text class="hdr" x="40" y="30">LogPulse — event analytics (500 events, seed 42)</text>
+  <text class="sub" x="40" y="46">ingested → validated → aggregated (the numbers Elasticsearch returns)</text>
+
+  <g>
+    <rect x="40" y="58" width="140" height="48" rx="8" fill="#E6F1FB"/>
+    <text class="kpiN" x="54" y="82">500</text><text class="kpiL" x="54" y="98">events processed</text>
+  </g>
+  <g>
+    <rect x="190" y="58" width="140" height="48" rx="8" fill="#FCEBEB"/>
+    <text class="kpiN" x="204" y="82" fill="#A32D2D">80</text><text class="kpiL" x="204" y="98">errors (16.0%)</text>
+  </g>
+  <g>
+    <rect x="340" y="58" width="140" height="48" rx="8" fill="#E6F1FB"/>
+    <text class="kpiN" x="354" y="82">6</text><text class="kpiL" x="354" y="98">services</text>
+  </g>
+  <g>
+    <rect x="490" y="58" width="150" height="48" rx="8" fill="#E6F1FB"/>
+    <text class="kpiN" x="504" y="82">5</text><text class="kpiL" x="504" y="98">regions</text>
+  </g>
+
+  <text class="sec" x="40" y="138">Error rate by service (%)</text>
+  <g>
+    <text class="lbl" x="40" y="160">catalog</text><rect x="145" y="150" width="430" height="13" rx="3" fill="#EEF2F6"/><rect x="145" y="150" width="430" height="13" rx="3" fill="#D85A30"/><text class="val" x="583" y="160" fill="#993C1D">29.1</text>
+    <text class="lbl" x="40" y="182">notifications</text><rect x="145" y="172" width="430" height="13" rx="3" fill="#EEF2F6"/><rect x="145" y="172" width="222" height="13" rx="3" fill="#D85A30"/><text class="val" x="583" y="182" fill="#993C1D">15.0</text>
+    <text class="lbl" x="40" y="204">auth</text><rect x="145" y="194" width="430" height="13" rx="3" fill="#EEF2F6"/><rect x="145" y="194" width="211" height="13" rx="3" fill="#D85A30"/><text class="val" x="583" y="204" fill="#993C1D">14.3</text>
+    <text class="lbl" x="40" y="226">search</text><rect x="145" y="216" width="430" height="13" rx="3" fill="#EEF2F6"/><rect x="145" y="216" width="194" height="13" rx="3" fill="#D85A30"/><text class="val" x="583" y="226" fill="#993C1D">13.1</text>
+    <text class="lbl" x="40" y="248">checkout</text><rect x="145" y="238" width="430" height="13" rx="3" fill="#EEF2F6"/><rect x="145" y="238" width="171" height="13" rx="3" fill="#D85A30"/><text class="val" x="583" y="248" fill="#993C1D">11.6</text>
+    <text class="lbl" x="40" y="270">payments</text><rect x="145" y="260" width="430" height="13" rx="3" fill="#EEF2F6"/><rect x="145" y="260" width="130" height="13" rx="3" fill="#D85A30"/><text class="val" x="583" y="270" fill="#993C1D">8.8</text>
+  </g>
+
+  <text class="sec" x="40" y="306">Events by level</text>
+  <g>
+    <text class="lbl" x="40" y="328">INFO</text><rect x="145" y="318" width="430" height="13" rx="3" fill="#EEF2F6"/><rect x="145" y="318" width="430" height="13" rx="3" fill="#378ADD"/><text class="val" x="583" y="328" fill="#185FA5">274</text>
+    <text class="lbl" x="40" y="350">ERROR</text><rect x="145" y="340" width="430" height="13" rx="3" fill="#EEF2F6"/><rect x="145" y="340" width="125" height="13" rx="3" fill="#E24B4A"/><text class="val" x="583" y="350" fill="#A32D2D">80</text>
+    <text class="lbl" x="40" y="372">WARN</text><rect x="145" y="362" width="430" height="13" rx="3" fill="#EEF2F6"/><rect x="145" y="362" width="119" height="13" rx="3" fill="#EF9F27"/><text class="val" x="583" y="372" fill="#854F0B">76</text>
+    <text class="lbl" x="40" y="394">DEBUG</text><rect x="145" y="384" width="430" height="13" rx="3" fill="#EEF2F6"/><rect x="145" y="384" width="110" height="13" rx="3" fill="#888780"/><text class="val" x="583" y="394" fill="#444441">70</text>
+  </g>
+</svg>
